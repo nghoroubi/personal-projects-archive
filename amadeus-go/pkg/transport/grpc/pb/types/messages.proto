@@ -1,0 +1,567 @@
+syntax = "proto3";
+
+package search.type;
+
+message HealthCheckRequest {
+}
+message HealthCheckReply {
+    bool ok = 1;
+}
+
+message SearchRequest {
+    string Origin = 1;
+    string Destination = 2;
+    string DepartureTime = 3;
+    string ReturnTime = 4;
+    int32 AdultCount = 5;
+    int32 ChildCount = 6;
+    int32 InfantCount = 7;
+    int32 AirClass = 8;
+    string Airline = 9;
+    string Type =10;
+    search.type.Sort Sort = 11;
+    search.type.Filter Filter = 12;
+}
+message SearchReply {
+    repeated StdError Errors = 1;
+    repeated Data Data = 2;
+    Meta Meta = 3;
+    Link Links = 4;
+}
+
+message OriginDestinationInformations {
+
+    string DepartureDateTime = 1;
+    string DestinationLocationCode = 2;
+    int32 DestinationType = 3;
+    string OriginLocationCode = 4;
+    int32 OriginType = 5;
+
+}
+
+message StdError {
+    string ID = 1;
+    string Status = 2;
+    string Code = 3;
+    string Title = 4;
+    string Detail = 5;
+}
+
+message Meta {
+    Pages Pages = 1;
+    string Currency = 2;
+    Default Defaults = 3;
+    Dictionary Dictionaries = 4;
+
+}
+
+message Pages {
+    int32 TotalPages = 1;
+    int32 From = 2;
+    int32 LastPage = 3;
+    int32 To = 4;
+    int32 Total = 5;
+
+}
+
+message Default {
+    bool Stop = 1;
+    string adults = 2;
+
+
+}
+
+message Dictionary {
+
+
+    map<string, string> Carrier = 1;
+    map<string, string> Currencies = 2;
+    map<string, string> Aircrafts = 3;
+    map<string, string> Locations = 4;
+
+}
+
+message Link {
+    string Self = 1;
+}
+
+message Data {
+    string ID = 1;
+    string Type = 2;
+    Attributes Attributes = 3;
+    Relationships Relationships = 4;
+}
+
+message Attributes {
+    string Currency = 1;
+    bool Stop = 2;
+    Date Date = 3;
+}
+
+message Date {
+    string ArivalDate = 1;
+    string DepartureDate = 2;
+}
+
+message Relationships {
+    repeated OfferItems OfferItems = 1;
+    Link Links = 2;
+}
+
+message OfferItems {
+    OfferItemRelationship Relationships = 1;
+    Link Links = 2;
+}
+
+message OfferItemRelationship {
+    Price Price = 1;
+    Price PricePerAdult = 2;
+    Price PricePerChild = 3;
+    Price PricePerInfant = 4;
+    repeated Service Service = 5;
+}
+
+message Price {
+    string Total = 1;
+    string TotalTax = 2;
+}
+
+message Service {
+    ServiceAttributes Attributes = 1;
+    ServiceRelationships Relationships = 2;
+}
+
+message ServiceAttributes {
+    string Duration = 1;
+    int32 DurationPerMin = 2;
+}
+
+message ServiceRelationships {
+    repeated Segment Segment = 1;
+}
+
+message Segment {
+    string ID = 1;
+    string Type = 2;
+    SegmentAtt Attributes = 3;
+    SegmentRelationships Relationships = 4;
+}
+
+message SegmentAtt {
+    string TravelClass = 1;
+    string FareClass = 2;
+    int32 Availability = 3;
+    string FareBasis = 4;
+    string Duration = 5;
+    int32 DurationPerMin = 6;
+    DateDetail Arrival = 7;
+    DateDetail Departure = 8;
+    string CarrierCode = 9;
+    string Number = 10;
+    string AircraftCode = 11;
+    string Baggage = 12;
+    bool IsCharter = 13;
+}
+
+message DateDetail {
+    string IataCode = 1;
+    string At = 2;
+}
+
+message SegmentRelationships {
+    Operating Operating = 1;
+    repeated TechnicalStops TechnicalStops = 2;
+
+}
+
+message TechnicalStops {
+    TechnicalStopsData Data = 1;
+}
+
+message TechnicalStopsData {
+    string ArrivalAirport = 1;
+    string ArrivalDateTime = 2;
+    string DepartureDateTime = 3;
+}
+
+message Operating {
+    string CarrierCode = 1;
+    string Number = 2;
+}
+
+message TravelPreference {
+    int32 CabinType = 1;
+    int32 MaxStopsQuantity = 2;
+    int32 AirTripType = 3;
+    repeated string VendorExcludeCodes = 4;
+    repeated string VendorPreferenceCodes = 5;
+    int32 InfantCount = 6;
+}
+
+message Sort {
+    string Price = 1;
+}
+
+message Filter {
+    IntLimit Duration = 1;
+    IntLimit MaxStopDuration = 2;
+    int32 StopCount = 3;
+    bool AvailabilityTicket = 4;
+    string Airport = 5;
+    StrLimit WentHours = 6;
+    StrLimit ReturnHours = 7;
+    string Type = 8;
+}
+
+message IntLimit {
+    int32 Max = 1;
+    int32 Min = 2;
+}
+
+message StrLimit {
+    string Max = 1;
+    string Min = 2;
+}
+
+
+message CancelPNRRequest {
+    string PNR = 1;
+}
+message CancelPNRReply {
+    string Error = 1;
+}
+
+message FinalTicket {
+    string PassengerName = 1;
+    string TicketNo = 2;
+}
+
+message AirRevalidateRequest {
+    string Origin = 1;
+    string Destination = 2;
+    string DepartureTime = 3;
+    string FlightClass = 4;
+    string FlightNo = 5;
+    int32 AdultCount = 6;
+    int32 ChildCount = 7;
+    int32 InfantCount = 8;
+    float AdultPrice = 9;
+    float ChildPrice = 10;
+    float InfantPrice = 11;
+    int32 AvailableSeats = 12;
+}
+message AirRevalidateReply {
+    float AdultPrice = 1;
+    float ChildPrice = 2;
+    float InfantPrice = 3;
+    int32 AvailableSeats = 4;
+}
+
+message AirBookRequest {
+    string SessionId = 1;
+    string FareSourceCode = 2;
+    string ClientUniqueId = 3;
+    float MarkupForAdult = 4;
+    float MarkupForChild = 5;
+    float MarkupForInfant = 6;
+    TravelerInfo TravelerInfo = 7;
+    TravelInfo TravelInfo = 8;
+
+}
+
+message TravelerInfo {
+    string PhoneNumber = 1;
+    string Email = 2;
+    repeated AirTraveler AirTravelers = 3;
+}
+
+message TravelInfo {
+    string Origin = 1;
+    string Destination = 2;
+    string FlightClass = 3;
+    string FlightNo = 4;
+    string DepartureDate = 5;
+}
+
+
+message AirTraveler {
+    string DateOfBirth = 1;
+    int32 Gender = 2;
+    int32 PassengerType = 3;
+    PassengerName PassengerName = 4;
+    Passport Passport = 5;
+    string NationalId = 6;
+    string Nationality = 7;
+    repeated string ExtraServiceId = 8;
+    string FrequentFlyerNumber = 9;
+    int32 SeatPreference = 10;
+    int32 MealPreference = 11;
+    bool Wheelchair = 12;
+    Visa Visa =13;
+
+}
+
+message PassengerName {
+    string PassengerFirstName = 1;
+    string PassengerLastName = 2;
+    string PassengerMiddleName = 3;
+    string PassengerFirstNamePersian=4;
+    string PassengerLastNamePersian=5;
+    int32 PassengerTitle = 6;
+}
+
+message Passport {
+    string Country = 1;
+    string ExpiryDate = 2;
+    string IssueDate = 3;
+    string PassportNumber = 4;
+}
+
+message Visa {
+    string VisaType = 1;
+    string VisaCountry = 2;
+}
+message AirBookReply {
+    repeated StdError StdError = 1;
+    AirBookResponseData Data = 2;
+    Meta Meta = 3;
+    Link Links = 4;
+}
+
+message AirBookResponseData {
+    string ID = 1;
+    string Type = 2;
+    AirBookAtt Attributes = 3;
+}
+
+message AirBookAtt {
+    bool Success = 1;
+    string TktTimeLimit = 2;
+    int32 Category = 3;
+    int32 Status = 4;
+    string UniqueId = 5;
+}
+
+
+message AirBookingDataRequest {
+    string SessionId = 1;
+    string UniqueId = 2;
+}
+
+message AirBookingDataReply {
+    repeated StdError StdError = 1;
+    AirBookingData Data = 2;
+    Meta Meta = 3;
+    Link Links = 4;
+}
+
+message AirBookingData {
+    string ID = 1;
+    string Type = 2;
+    AirBookingDataAttributes Attributes = 3;
+    AirBookingDataRelationships Relationships = 4;
+}
+
+message AirBookingDataAttributes {
+    string UniqueId = 1;
+    string BookedBy = 2;
+    string OrderBy = 3;
+    float ClientBalance = 4;
+    bool Success = 5;
+    string TktTimeLimit = 6;
+    int32 Category = 7;
+    int32 Status = 8;
+    int32 RefundMethod = 9;
+
+}
+
+message AirBookingDataRelationships {
+    TravelItinerary TravelItinerary = 1;
+
+}
+
+message TravelItinerary {
+    TravelItineraryRelationships Relationships = 1;
+
+}
+
+message TravelItineraryRelationships {
+    ItineraryInfo ItineraryInfo = 1;
+    repeated BookingNotes BookingNotes = 2;
+    repeated Services Services = 3;
+
+}
+
+message Services {
+    string PassengerFirstName = 1;
+    string PassengerMiddleName = 2;
+    string PassengerLastName = 3;
+    string Description = 4;
+    string ServiceId = 5;
+    int32 Behavior = 6;
+    float Amount = 7;
+    string Currency = 8;
+}
+
+message ItineraryInfo {
+    ItineraryInfoRelationships Relationships = 1;
+}
+
+message BookingNotes {
+    string Note = 1;
+    string Date = 2;
+}
+
+message ItineraryInfoRelationships {
+    ItineraryPricing ItineraryPricing = 1;
+    repeated CustomerInfoes CustomerInfoes = 2;
+    repeated ReservationItems ReservationItems = 3;
+    repeated TripDetailPtcFareBreakdowns TripDetailPtcFareBreakdowns = 4;
+}
+
+message ItineraryPricing {
+    float BaseFare = 1;
+    float ServiceTax = 2;
+    float TotalTax = 3;
+    float TotalFare = 4;
+    float TotalCommission = 5;
+    string Currency = 6;
+}
+
+message CustomerInfoes {
+    string ID = 1;
+    string Type = 2;
+    CustomerInfoesAttributes Attributes = 3;
+    CustomerInfoesRelationships Relationships = 4;
+}
+
+message CustomerInfoesAttributes {
+    string ETickets = 1;
+}
+
+message CustomerInfoesRelationships {
+    Customer Customer = 1;
+    repeated ETicket ETicketNumbers = 2;
+}
+
+message Customer {
+    int32 PassengerType = 1;
+    string PassportNumber = 2;
+    string NationalId = 3;
+    string DateOfBirth = 4;
+    string PassportExpireDate = 5;
+    PassengerName PaxName = 6;
+}
+
+message ETicket {
+    string ETicketNumber = 1;
+    string DateOfIssue = 2;
+    bool IsRefunded = 3;
+    string AirlinePnr = 4;
+    float TotalRefund = 5;
+}
+
+message ReservationItems {
+    string ID = 1;
+    string Type = 2;
+    ReservationItemsAttributes Attributes = 3;
+    ReservationItemsRelationships Relationships = 4;
+}
+
+message ReservationItemsAttributes {
+    string AirEquipmentType = 1;
+    string AirlinePnr = 2;
+    string ArrivalAirportLocationCode = 3;
+    string ArrivalDateTime = 4;
+    string ArrivalTerminal = 5;
+    string Baggage = 6;
+    string DepartureAirportLocationCode = 7;
+    string DepartureDateTime = 8;
+    string DepartureTerminal = 9;
+    string FlightNumber = 10;
+    string JourneyDuration = 11;
+    int32 JourneyDurationPerMinute = 12;
+    string MarketingAirlineCode = 13;
+    string OperatingAirlineCode = 14;
+    string ResBookDesignCode = 15;
+    int32 StopQuantity = 16;
+    bool IsCharter = 17;
+}
+
+message ReservationItemsRelationships {
+    repeated TechnicalStops TechnicalStops = 1;
+}
+
+message TripDetailPtcFareBreakdowns {
+    TripDetailPtcFareBreakdownsRelationships Relationships = 1;
+}
+
+message TripDetailPtcFareBreakdownsRelationships {
+    PassengerTypeQuantity PassengerTypeQuantity = 1;
+    TripDetailPassengerFare TripDetailPassengerFare = 2;
+}
+
+message PassengerTypeQuantity {
+    int32 PassengerType = 1;
+    int32 Quantity = 2;
+}
+
+message TripDetailPassengerFare {
+    float BaseFare = 1;
+    float ServiceTax = 2;
+    float Tax = 3;
+    float TotalFare = 4;
+    float Commission = 5;
+    string Currency = 6;
+}
+
+message AirRulesRequest{
+    string                                               SessionId = 1;
+    string                                               FareSourceCode = 2;
+    string                                               UniqueId = 3;
+}
+
+message AirRulesResponse{
+    repeated    StdError          StdError =1;
+    AirRulesData                  Data =2;
+    Meta                          Meta = 3;
+    Link                          Links =4;
+}
+
+message AirRulesData{
+    string                                  ID =1;
+    string                                  Type=2;
+    AirRulesAttributes                      Attributes=3;
+    AirRulesRelationships                   Relationships=4;
+}
+
+message AirRulesAttributes{
+    bool	                            Success = 1;
+    int32	                            FareType = 2;
+}
+
+message AirRulesRelationships{
+    repeated  FareRules	                            FareRules = 1;
+
+}
+
+message FareRules{
+    string                                   ID =1;
+    string                                   Type=2;
+    FareRulesAttributes                      Attributes=3;
+    FareRulesRelationships                   Relationships=4;
+}
+
+message FareRulesAttributes{
+    string	                            Airline = 1;
+    string	                            CityPair = 2;
+}
+
+message FareRulesRelationships{
+    repeated RuleDetails	                            RuleDetails = 1;
+}
+
+message RuleDetails{
+    string	                            Category = 1;
+    string	                            Rules = 2;
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "types/messages.proto";
+package search.struct;
+
+// The service definition.
+service Service {
+    rpc HealthCheck (search.type.HealthCheckRequest) returns (search.type.HealthCheckReply);
+    rpc AirLowFareSearch (search.type.SearchRequest) returns (search.type.SearchReply);
+    rpc AirBook (search.type.AirBookRequest) returns (search.type.AirBookReply);
+    rpc CancelPNR (search.type.CancelPNRRequest) returns (search.type.CancelPNRReply);
+    rpc AirBookingData (search.type.AirBookingDataRequest) returns (search.type.AirBookingDataReply);
+    rpc AirRevalidate (search.type.AirRevalidateRequest) returns (search.type.AirRevalidateReply);
+    rpc AirRules (search.type.AirRulesRequest) returns (search.type.AirRulesResponse);
+}
+

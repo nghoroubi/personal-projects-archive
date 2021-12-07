@@ -1,0 +1,13 @@
+{
+  "mail": {
+    "server": "mail_server:2525",
+    "auth": {
+      "user": "user@example.com",
+      "password": "password"
+    },
+    "from": {
+      "name": "From",
+      "address": "from_email_address"
+    }
+  }
+}

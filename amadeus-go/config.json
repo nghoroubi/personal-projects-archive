@@ -1,0 +1,99 @@
+{
+  "service": {
+    "name": "amadeus",
+    "version": "1.0.0",
+    "discovery_address": "10.10.58.11:8500",
+    "advertise_address": "10.10.14.22",
+    "discovery_tags": [
+      "amadeus",
+      "amadeus-gds",
+      "amadeus-api",
+      "amadeus-service"
+    ],
+    "http_port": "49909",
+    "grpc_port": "49709",
+    "cache": {
+      "address": "localhost:6379",
+      "expire_search_key": "300"
+    },
+    "tracer": "http://localhost:9411/api/v2/spans"
+  },
+  "api": {
+    "version": 0,
+    "timestamp": "2006-01-02T15:04:05Z",
+    "currency": "IRR",
+    "auth": {
+      "user": "user",
+      "password": "password"
+    },
+    "base_url": "base_url",
+    "config": {
+      "search": {
+        "provider_type": "amadeus",
+        "refund_mode": "all_flights",
+        "multi_airport_city": false,
+        "direct_flights_only": false,
+        "available_flights_only": true,
+        "maximum_response_count": 50,
+        "payment_fp_type":"FPCA"
+      },
+      "book": {
+        "ticketing_type": "booking_only"
+      }
+    },
+    "critical_errors": {
+      "price_changed": "Prices have changed"
+    }
+  },
+  "response_props": {
+    "search": {
+      "non_stop": false,
+      "stop_count": 100
+    }
+  },
+  "flight_classes": {
+    "economy": [
+      "B",
+      "G",
+      "H",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "Q",
+      "S",
+      "T",
+      "U",
+      "V",
+      "X",
+      "Y"
+    ],
+    "premium": [
+      "W",
+      "E"
+    ],
+    "business": [
+      "C",
+      "D",
+      "I",
+      "J",
+      "Z"
+    ],
+    "first": [
+      "A",
+      "F",
+      "P",
+      "R"
+    ]
+  },
+  "rules": {
+    "booking_email": "your_email",
+    "air_rules": [
+      "تا 12 ظهر 3 روز قبل از پرواز 30% از مبلغ خام بلیت کسر خواهد شد",
+      "تا 12 ظهر یک روز قبل از پرواز 40% از مبلغ خام بلیت کسر خواهد شد",
+      "از 12 ظهر یک روز قبل از پرواز تا 5 ساعت مانده به پرواز 50% از مبلغ خام بلیت کسر خواهد شد",
+      "نرفتن به پرواز 60% از مبلغ خام بلیت کسر خواهد شد"
+    ]
+  }
+}
